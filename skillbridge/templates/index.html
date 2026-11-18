@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}SkillBridge | Find Your Next Opportunity{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <span class="eyebrow">A platform built for student growth</span>
+        <h1>Your skills deserve the <span>right opportunity.</span></h1>
+        <p>Discover projects that match your abilities, connect with fellow students and build your future one skill at a time.</p>
+        <div class="hero-actions">
+            {% if user %}
+                <a class="button primary" href="{{ url_for('dashboard') }}">Go to Dashboard</a>
+            {% else %}
+                <a class="button primary" href="{{ url_for('register') }}">Get Started</a>
+                <a class="button secondary" href="{{ url_for('about') }}">Explore SkillBridge</a>
+            {% endif %}
+        </div>
+        <div class="hero-note">Learn • Collaborate • Create</div>
+    </div>
+    <div class="hero-card">
+        <div class="card-topline"><span class="status-dot"></span> YOUR NEXT STEP</div>
+        <h3>Turn skills into projects.</h3>
+        <div class="sample-match">
+            <div><strong>Python</strong><span>Skill</span></div>
+            <div><strong>Web App</strong><span>Project</span></div>
+            <div><strong>Teamwork</strong><span>Opportunity</span></div>
+        </div>
+        <p class="muted">A clear path from what you know to what you can build.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <span class="eyebrow">What you can do</span>
+        <h2>Everything you need to move forward</h2>
+        <p>One place to discover, collaborate and show what you can do.</p>
+    </div>
+    <div class="feature-grid">
+        <article class="feature-card"><div class="feature-icon">✦</div><h3>Project Matching</h3><p>Find sample projects based on the skills in your profile.</p></article>
+        <article class="feature-card"><div class="feature-icon">◎</div><h3>Team Finder</h3><p>Discover other students and explore their skills.</p></article>
+        <article class="feature-card"><div class="feature-icon">↗</div><h3>Skill Growth</h3><p>Identify skills you can build next through project requirements.</p></article>
+    </div>
+</section>
+
+<section class="cta-band">
+    <div><span class="eyebrow">Start building</span><h2>Your next project starts here.</h2></div>
+    <a class="button light-button" href="{{ url_for('register') }}">Create Your Profile</a>
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Project Matching | SkillBridge{% endblock %}
+{% block content %}
+<section class="page-banner">
+    <span class="eyebrow">Discover opportunities</span>
+    <h1>Projects matched to your skills</h1>
+    <p>Matches are calculated from the skills saved in your profile.</p>
+    {% if not user.skills %}<p class="tip">Tip: <a href="{{ url_for('profile') }}">Add your skills</a> to get more useful matches.</p>{% endif %}
+</section>
+<section class="project-grid">
+    {% for result in project_results %}
+        <article class="project-card">
+            <div class="project-card-top"><span class="level-tag">{{ result.project.level }}</span><strong>{{ result.match_percentage }}% match</strong></div>
+            <div class="match-track"><div class="match-fill" style="width: {{ result.match_percentage }}%"></div></div>
+            <h2>{{ result.project.title }}</h2>
+            <p>{{ result.project.description }}</p>
+            <p class="muted small-text">Posted by: {{ result.project.owner.name if result.project.owner else "SkillBridge Demo" }}</p>
+            <h4>Skills needed</h4>
+            <div class="skill-tags">
+                {% for skill in result.project.skills_needed.split(",") %}
+                    <span class="{% if skill|lower in user.skills|lower %}matched-tag{% endif %}">{{ skill }}</span>
+                {% endfor %}
+            </div>
+            {% if result.matched_skills %}
+                <p class="matched-note">You match: {{ result.matched_skills|join(", ") }}</p>
+            {% else %}
+                <p class="muted small-text">Add relevant skills to improve your match.</p>
+            {% endif %}
+            {% if result.project.owner_id == user.id %}
+                <span class="status-pill accepted">Your project</span>
+            {% else %}
+                <form method="POST" action="{{ url_for('project_request', project_id=result.project.id) }}">
+                    <button class="primary-button request-button" type="submit">Request to Join Project</button>
+                </form>
+            {% endif %}
+        </article>
+    {% endfor %}
+</section>
+{% endblock %}

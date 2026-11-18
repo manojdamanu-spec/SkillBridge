@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Find Teammates | SkillBridge{% endblock %}
+{% block content %}
+<section class="page-banner">
+    <span class="eyebrow">Build together</span>
+    <h1>Find student collaborators</h1>
+    <p>Explore student profiles and the skills they have shared.</p>
+</section>
+<section class="section team-section">
+    <input class="search-box" id="studentSearch" type="search" placeholder="Search by student name or skill...">
+    <div class="student-grid" id="studentGrid">
+        {% for student in students %}
+            <article class="student-card" data-search="{{ (student.name ~ ' ' ~ student.skills ~ ' ' ~ student.department)|lower }}">
+                <div class="avatar">{{ student.name[:1]|upper }}</div>
+                <h3>{{ student.name }}</h3>
+                <p class="muted">{{ student.department or "Department not added" }} · {{ student.year or "Year not added" }}</p>
+                <div class="skill-tags">
+                    {% if student.skills %}
+                        {% for skill in student.skills.split(",") %}
+                            <span>{{ skill }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <span>Skills not added</span>
+                    {% endif %}
+                </div>
+                <form method="POST" action="{{ url_for('partner_request', student_id=student.id) }}">
+                    <button class="primary-button request-button" type="submit">Request to Partner</button>
+                </form>
+            </article>
+        {% else %}
+            <p>No other student profiles yet. Invite classmates to join SkillBridge.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

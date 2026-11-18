@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}My Profile | SkillBridge{% endblock %}
+{% block content %}
+<section class="form-section">
+    <form class="form-card wide-form" method="POST">
+        <span class="eyebrow">Your information</span>
+        <h1>My student profile</h1>
+        <p class="muted">Add your skills separated by commas. Example: Python, HTML, CSS, SQL.</p>
+        <label>Full name<input type="text" value="{{ user.name }}" disabled></label>
+        <label>Email address<input type="email" value="{{ user.email }}" disabled></label>
+        <label>Department<input type="text" name="department" value="{{ user.department }}" placeholder="e.g. Computer Science"></label>
+        <label>Current year
+            <select name="year">
+                <option value="">Select your year</option>
+                {% for year in ["1st Year", "2nd Year", "3rd Year", "4th Year"] %}
+                    <option value="{{ year }}" {% if user.year == year %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Technical skills<textarea name="skills" rows="4" placeholder="Python, HTML, CSS, JavaScript">{{ user.skills }}</textarea></label>
+        <button class="button primary full-button" type="submit">Save Profile</button>
+    </form>
+</section>
+{% endblock %}

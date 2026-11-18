@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | SkillBridge{% endblock %}
+{% block content %}
+<section class="page-banner">
+    <span class="eyebrow">Student dashboard</span>
+    <h1>Welcome, {{ user.name }}!</h1>
+    <p>Your SkillBridge journey starts with your skills and interests.</p>
+</section>
+<section class="dashboard-grid">
+    <article class="dashboard-card">
+        <span class="feature-icon">✎</span><h3>Complete your profile</h3>
+        <p>Add your department, year and technical skills so project matching can work better.</p>
+        <a class="text-link" href="{{ url_for('profile') }}">Update profile →</a>
+    </article>
+    <article class="dashboard-card">
+        <span class="feature-icon">✦</span><h3>Find matching projects</h3>
+        <p>Compare your skills with project requirements and see your match percentage.</p>
+        <a class="text-link" href="{{ url_for('projects') }}">Explore projects →</a>
+    </article>
+    <article class="dashboard-card">
+        <span class="feature-icon">◎</span><h3>Meet student collaborators</h3>
+        <p>Browse other student profiles and find people with different skills.</p>
+        <a class="text-link" href="{{ url_for('team_finder') }}">Find teammates →</a>
+    </article>
+</section>
+{% endblock %}

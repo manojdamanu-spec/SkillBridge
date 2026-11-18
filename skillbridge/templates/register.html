@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Create Account | SkillBridge{% endblock %}
+{% block content %}
+<section class="form-section">
+    <form class="form-card" method="POST">
+        <span class="eyebrow">Join the community</span>
+        <h1>Create your account</h1>
+        <p class="muted">Start connecting your skills with opportunities.</p>
+        <label>Full name<input type="text" name="name" placeholder="Enter your name" required></label>
+        <label>Email address<input type="email" name="email" placeholder="you@example.com" required></label>
+        <label>Password<input type="password" name="password" minlength="6" placeholder="At least 6 characters" required></label>
+        <button class="button primary full-button" type="submit">Create Account</button>
+        <p class="form-bottom">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+    </form>
+</section>
+{% endblock %}

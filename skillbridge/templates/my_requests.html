@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}My Requests | SkillBridge{% endblock %}
+{% block content %}
+<section class="page-banner">
+    <span class="eyebrow">Your collaboration inbox</span>
+    <h1>My Requests</h1>
+    <p>Accept or reject partnership and project requests. Track the requests you have sent too.</p>
+</section>
+<section class="section requests-layout">
+    <div class="request-panel">
+        <h2>Partnership requests received</h2>
+        {% for item in incoming_partners %}
+        <article class="request-card">
+            <div><h3>{{ item.sender.name }}</h3><p>{{ item.sender.department or 'Department not added' }} · {{ item.sender.year or 'Year not added' }}</p><p class="muted">Skills: {{ item.sender.skills or 'Not added' }}</p></div>
+            <span class="status-pill {{ item.status|lower }}">{{ item.status }}</span>
+            {% if item.status == 'Pending' %}<div class="request-actions">
+                <form method="POST" action="{{ url_for('request_action', request_type='partner', request_id=item.id, action='accept') }}"><button class="primary-button" type="submit">Accept</button></form>
+                <form method="POST" action="{{ url_for('request_action', request_type='partner', request_id=item.id, action='reject') }}"><button class="secondary-button" type="submit">Reject</button></form>
+            </div>{% endif %}
+        </article>
+        {% else %}<p class="muted">No partnership requests received yet.</p>{% endfor %}
+    </div>
+    <div class="request-panel">
+        <h2>Project requests received</h2>
+        {% for item in incoming_projects %}
+        <article class="request-card">
+            <div><h3>{{ item.sender.name }} wants to join</h3><p>Project: <strong>{{ item.project.title }}</strong></p><p class="muted">Skills: {{ item.sender.skills or 'Not added' }}</p></div>
+            <span class="status-pill {{ item.status|lower }}">{{ item.status }}</span>
+            {% if item.status == 'Pending' %}<div class="request-actions">
+                <form method="POST" action="{{ url_for('request_action', request_type='project', request_id=item.id, action='accept') }}"><button class="primary-button" type="submit">Accept</button></form>
+                <form method="POST" action="{{ url_for('request_action', request_type='project', request_id=item.id, action='reject') }}"><button class="secondary-button" type="submit">Reject</button></form>
+            </div>{% endif %}
+        </article>
+        {% else %}<p class="muted">No requests for your projects yet.</p>{% endfor %}
+    </div>
+    <div class="request-panel">
+        <h2>Partnership requests sent</h2>
+        {% for item in outgoing_partners %}<article class="request-card"><div><h3>{{ item.receiver.name }}</h3><p>Partnership request</p></div><span class="status-pill {{ item.status|lower }}">{{ item.status }}</span></article>
+        {% else %}<p class="muted">You have not sent any partnership requests.</p>{% endfor %}
+    </div>
+    <div class="request-panel">
+        <h2>Project requests sent</h2>
+        {% for item in outgoing_projects %}<article class="request-card"><div><h3>{{ item.project.title }}</h3><p>Requested to join {{ item.project.owner.name if item.project.owner else 'SkillBridge Demo' }}'s project</p></div><span class="status-pill {{ item.status|lower }}">{{ item.status }}</span></article>
+        {% else %}<p class="muted">You have not requested to join any projects.</p>{% endfor %}
+    </div>
+</section>
+{% endblock %}
