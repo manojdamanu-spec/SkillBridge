@@ -43,7 +43,7 @@ SkillBridge helps students turn their skills into real project experiences. Stud
 
 5. Open your browser and visit:
    
-   "http://127.0.0.1:5000"
+   https://skillbridge-1-tbl9.onrender.com/
 
 🎓 Our Campus Community
 
